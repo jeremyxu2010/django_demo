@@ -12,18 +12,20 @@ from django.utils import timezone
 
 
 class Question(models.Model):
-    question_text = models.CharField(name='question_text', verbose_name='question text', max_length=200, db_column='question_text')
-    pub_date = models.DateTimeField(name='pub_date', verbose_name='date published', default=timezone.now, db_column='pub_date')
+    question_text = models.CharField(name='question_text', verbose_name='question text', max_length=200,
+                                     db_column='question_text')
+    pub_date = models.DateTimeField(name='pub_date', verbose_name='date published', default=timezone.now,
+                                    db_column='pub_date')
 
     class Meta:
         db_table = "question"
 
     @classmethod
-    def is_valid_question(self, question_text):
+    def is_valid_question(cls, question_text):
         return len(Question.objects.filter(question_text=question_text)) > 0
 
     @classmethod
-    def get_pub_date(self, question_text):
+    def get_pub_date(cls, question_text):
         with connection.cursor() as cursor:
             cursor.execute("SELECT pub_date FROM question WHERE question_text=%s", [question_text])
             results = Question.namedtuplefetchall(cursor)
@@ -32,8 +34,7 @@ class Question(models.Model):
         return None
 
     @classmethod
-
-    def namedtuplefetchall(self,  cursor):
+    def namedtuplefetchall(cls, cursor):
         "Return all rows from a cursor as a namedtuple"
         desc = cursor.description
         nt_result = namedtuple('Result', [col[0] for col in desc])
