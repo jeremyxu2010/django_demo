@@ -216,3 +216,4 @@ datetime.datetime(2012, 2, 26, 13, 0, 0, 775217, tzinfo=<UTC>)
 
 1. https://docs.djangoproject.com/en/1.11/intro/
 2. https://docs.djangoproject.com/en/1.11/topics/
+3. https://books.agiliq.com/projects/django-orm-cookbook/en/latest/introduction.html
